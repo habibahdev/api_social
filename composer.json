@@ -7,14 +7,22 @@
         "php": ">=8.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^3.2",
+        "doctrine/doctrine-migrations-bundle": "^4.0",
+        "doctrine/orm": "^3.6",
+        "lexik/jwt-authentication-bundle": "^3.2",
+        "phpdocumentor/reflection-docblock": "^6.0",
+        "phpstan/phpdoc-parser": "^2.3",
         "symfony/console": "8.0.*",
         "symfony/dotenv": "8.0.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "8.0.*",
+        "symfony/property-access": "8.0.*",
+        "symfony/property-info": "8.0.*",
         "symfony/runtime": "8.0.*",
+        "symfony/security-bundle": "8.0.*",
+        "symfony/serializer": "8.0.*",
         "symfony/yaml": "8.0.*"
-    },
-    "require-dev": {
     },
     "config": {
         "allow-plugins": {
@@ -57,6 +65,12 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "prepare": [
+            "php bin/console doctrine:database:drop --if-exists -f",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:schema:update -f",
+            "php bin/console doctrine:fixtures:load -n"
         ]
     },
     "conflict": {
@@ -67,5 +81,8 @@
             "allow-contrib": false,
             "require": "8.0.*"
         }
+    },
+    "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^4.3"
     }
 }
